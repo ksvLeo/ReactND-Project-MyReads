@@ -14,7 +14,7 @@ function BooksGallery({ filterBooks, books, handleAddBook }) {
           <Link to="/" className="close-search">
             Close
           </Link>
-          <SearchInput filterBooks={(input) => filterBooks(input)} />
+          <SearchInput filterBooks={(input) => filterBooks(input)} placeholder='Search by title or author'/>
         </div>
         <div className="search-books-results">
           <BookList

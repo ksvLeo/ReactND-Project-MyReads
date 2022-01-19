@@ -2,6 +2,7 @@ import React from "react";
 import BookList from "../common/books-list";
 
 export default function ShelfDisplay({ header, books, handleMoveShelf }) {
+  //Dynamic bookshelf component
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{header}</h2>

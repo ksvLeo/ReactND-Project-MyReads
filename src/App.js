@@ -62,13 +62,13 @@ function BooksApp() {
   const filterGallery = (input) => {
     if (input) {
       BooksAPI.search(input).then((books) => {
-        if (!books.error) {
-          setGalleryBooks(books);
-        } else {
-          setGalleryBooks([]);
+        if (!books.error) { 
+          setGalleryBooks(books)
+          return; //As server did return a collection of books, purpose of this method is reached
         }
       });
     }
+    setGalleryBooks([]); // Either because input was empty or query did not return any book, gallery array will be reset
   };
 
   const notAddedBooks = () => {
@@ -87,6 +87,8 @@ function BooksApp() {
   return (
     <div className="app">
       <Routes>
+        // BooksGallery Module - Allows user to search for books to add to their
+        personal collection
         <Route
           path="/search"
           element={
@@ -97,6 +99,8 @@ function BooksApp() {
             />
           }
         />
+        // UserLibrary Module - Displays user's personal collection grouped in
+        shelves
         <Route
           path="/"
           exact

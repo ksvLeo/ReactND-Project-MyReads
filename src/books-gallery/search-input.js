@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function SearchInput({ filterBooks }) {
+function SearchInput({ filterBooks, placeholder }) {
+  //Dynamic input component
   const [userInput, setInput] = useState("");
 
   const handleSearch = (event) => {
@@ -15,7 +16,7 @@ function SearchInput({ filterBooks }) {
   return (
     <input
       type="text"
-      placeholder="Search by title or author"
+      placeholder={placeholder}
       value={userInput}
       onChange={handleSearch}
     />

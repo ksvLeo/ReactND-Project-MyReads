@@ -3,11 +3,12 @@ import "../App.css";
 
 export default function BookActions({ handleAddBook, handleMoveShelf, shelf }) {
   const handleInput = (event) => {
-    shelf
-      ? handleMoveShelf(event.target.value)
-      : handleAddBook(event.target.value);
+    shelf === "none"
+      ? handleAddBook(event.target.value)
+      : handleMoveShelf(event.target.value);
   };
 
+  //Options menu to interact with library
   return (
     <select defaultValue={""} onChange={handleInput}>
       <option key="move" value="" hidden />
