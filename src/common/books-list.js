@@ -1,7 +1,7 @@
 import React from "react";
 import BookItem from "./book-item";
 
-function BookList({ books, handleMoveShelf }) {
+function BookList({ books, handleMoveShelf, handleAddBook }) {
   return (
     <ol className="books-grid">
       {books &&
@@ -12,6 +12,9 @@ function BookList({ books, handleMoveShelf }) {
                 book={book}
                 handleMoveShelf={(bookId, newShelf) =>
                   handleMoveShelf(bookId, newShelf)
+                }
+                handleAddBook={(bookId, newShelf) =>
+                  handleAddBook(bookId, newShelf)
                 }
               />
             </li>
