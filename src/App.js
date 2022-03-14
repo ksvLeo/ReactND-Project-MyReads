@@ -60,6 +60,10 @@ function BooksApp() {
     if (input) {
       BooksAPI.search(input).then((books) => {
         if (!books.error) {
+          userAddedBooks.map((addedBook) => {
+            const book = books.find((book) => book.id === addedBook.id);
+            if (book) book.shelf = addedBook.shelf;
+          });
           setGalleryBooks(books);
           return; //As server did return a collection of books, purpose of this method is reached
         }
