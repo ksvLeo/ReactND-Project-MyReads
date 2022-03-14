@@ -48,7 +48,7 @@ function BooksApp() {
       BooksAPI.update(book, newShelf).then((updatedShelves) => {
         book.shelf = newShelf;
         setUserBooks((userAddedBooks) => [
-          ...userAddedBooks.filter((book) => book.id !== book.id),
+          ...userAddedBooks.filter((addedBook) => addedBook.id !== book.id),
           book,
         ]);
         setShelvesContents(updatedShelves);
