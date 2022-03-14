@@ -18,8 +18,8 @@ function BookItem({ book, handleMoveShelf, handleAddBook }) {
           <div className="book-shelf-changer">
             <BookActions
               shelf={book.shelf ? book.shelf : "none"}
-              handleMoveShelf={(newShelf) => handleMoveShelf(book.id, newShelf)}
-              handleAddBook={(newShelf) => handleAddBook(book.id, newShelf)}
+              handleMoveShelf={(newShelf) => handleMoveShelf(book, newShelf)}
+              handleAddBook={(newShelf) => handleAddBook(book, newShelf)}
             />
           </div>
         </div>

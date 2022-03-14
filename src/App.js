@@ -35,23 +35,20 @@ function BooksApp() {
     });
   };
 
-  const handleAddBook = (bookId, shelf) => {
-    BooksAPI.get(bookId).then((book) => {
-      book.shelf = shelf;
-      setUserBooks((userAddedBooks) => [...userAddedBooks, book]);
-      BooksAPI.update(book, shelf).then((updatedShelves) => {
-        setShelvesContents(updatedShelves);
-      });
+  const handleAddBook = (book, shelf) => {
+    book.shelf = shelf;
+    setUserBooks((userAddedBooks) => [...userAddedBooks, book]);
+    BooksAPI.update(book, shelf).then((updatedShelves) => {
+      setShelvesContents(updatedShelves);
     });
   };
 
-  const handleMoveShelf = (bookId, newShelf) => {
-    const book = userAddedBooks.find((book) => book.id === bookId);
+  const handleMoveShelf = (book, newShelf) => {
     if (book.shelf !== newShelf) {
       BooksAPI.update(book, newShelf).then((updatedShelves) => {
         book.shelf = newShelf;
         setUserBooks((userAddedBooks) => [
-          ...userAddedBooks.filter((book) => book.id !== bookId),
+          ...userAddedBooks.filter((book) => book.id !== book.id),
           book,
         ]);
         setShelvesContents(updatedShelves);
@@ -62,26 +59,13 @@ function BooksApp() {
   const filterGallery = (input) => {
     if (input) {
       BooksAPI.search(input).then((books) => {
-        if (!books.error) { 
-          setGalleryBooks(books)
+        if (!books.error) {
+          setGalleryBooks(books);
           return; //As server did return a collection of books, purpose of this method is reached
         }
       });
     }
     setGalleryBooks([]); // Either because input was empty or query did not return any book, gallery array will be reset
-  };
-
-  const notAddedBooks = () => {
-    if (galleryBooks[0]) {
-      return galleryBooks.filter(
-        (book) =>
-          shelvesContent["currentlyReading"].every((c) => c !== book.id) &&
-          shelvesContent["wantToRead"].every((w) => w !== book.id) &&
-          shelvesContent["read"].every((r) => r !== book.id)
-      );
-    } else {
-      return [];
-    }
   };
 
   return (
@@ -93,9 +77,12 @@ function BooksApp() {
           path="/search"
           element={
             <BooksGallery
-              books={notAddedBooks()}
+              books={galleryBooks}
               filterBooks={(input) => filterGallery(input)}
               handleAddBook={(bookId, shelf) => handleAddBook(bookId, shelf)}
+              handleMoveShelf={(book, newShelf) =>
+                handleMoveShelf(book, newShelf)
+              }
             />
           }
         />
@@ -107,8 +94,8 @@ function BooksApp() {
           element={
             <UserLibrary
               books={userAddedBooks}
-              handleMoveShelf={(bookId, newShelf) =>
-                handleMoveShelf(bookId, newShelf)
+              handleMoveShelf={(book, newShelf) =>
+                handleMoveShelf(book, newShelf)
               }
             />
           }

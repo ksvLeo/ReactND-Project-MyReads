@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import BookList from "../common/books-list";
 import SearchInput from "./search-input";
 
-function BooksGallery({ filterBooks, books, handleAddBook }) {
+function BooksGallery({ filterBooks, books, handleAddBook, handleMoveShelf }) {
   return (
     <div>
       <div className="list-books-title">
@@ -14,13 +14,17 @@ function BooksGallery({ filterBooks, books, handleAddBook }) {
           <Link to="/" className="close-search">
             Close
           </Link>
-          <SearchInput filterBooks={(input) => filterBooks(input)} placeholder='Search by title or author'/>
+          <SearchInput
+            filterBooks={(input) => filterBooks(input)}
+            placeholder="Search by title or author"
+          />
         </div>
         <div className="search-books-results">
           <BookList
             books={books}
-            handleAddBook={(bookId, newShelf) =>
-              handleAddBook(bookId, newShelf)
+            handleAddBook={(book, newShelf) => handleAddBook(book, newShelf)}
+            handleMoveShelf={(book, newShelf) =>
+              handleMoveShelf(book, newShelf)
             }
           />
         </div>
